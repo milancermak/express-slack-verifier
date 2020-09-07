@@ -12,7 +12,7 @@ This module then provides a simple middleware built on top of `slack/events-api`
 
 Use the `applySlackVerifier` function the module exports. It attaches a middleware to a route under which you serve the requests coming from Slack.
 
-```nodejs
+```javascript
 import { default as e } from 'express';
 import { applySlackVerifier } from 'express-slack-verifier';
 
