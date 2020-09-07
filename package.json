@@ -1,6 +1,6 @@
 {
   "name": "express-slack-verifier",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
@@ -9,7 +9,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublishOnly": "npm run build"
   },
-  "keywords": ["express", "slack", "serverless"],
+  "keywords": [
+    "express",
+    "slack",
+    "serverless"
+  ],
   "author": "Milan Cermak",
   "license": "MIT",
   "files": [
