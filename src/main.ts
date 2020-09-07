@@ -33,7 +33,7 @@ const applySlackVerifier = (target: e.IRouter, path: string, signingSecret: stri
     }
 
     target.use(e.json({ verify: addRawBody }));
-    target.use(e.urlencoded({ verify: addRawBody }));
+    target.use(e.urlencoded({ verify: addRawBody, extended: false }));
 
     target.use(path, slackRequestVerifier(signingSecret));
 }
