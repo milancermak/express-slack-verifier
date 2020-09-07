@@ -1,3 +1,4 @@
+import * as http from 'http';
 import { default as e } from 'express';
 import { verifyRequestSignature } from '@slack/events-api';
 
@@ -21,13 +22,18 @@ const slackRequestVerifier = (signingSecret: string) => {
 }
 
 const applySlackVerifier = (target: e.IRouter, path: string, signingSecret: string) => {
-    target.use(e.json({
-        // adds a rawBody property to the http.IncomingMessage object
-        // so it can be passed to the verifyRequestSignature function
-        verify: (req, _res, buf, encoding) => {
-            req.rawBody = buf.toString(encoding);
-        }
-    }));
+    // adds a rawBody property to the http.IncomingMessage object
+    // so it can be passed to the verifyRequestSignature function
+    let addRawBody = (
+        req: http.IncomingMessage,
+        _res: http.ServerResponse,
+        buffer: Buffer,
+        encoding: string) => {
+        req.rawBody = buffer.toString(encoding);
+    }
+
+    target.use(e.json({ verify: addRawBody }));
+    target.use(e.urlencoded({ verify: addRawBody }));
 
     target.use(path, slackRequestVerifier(signingSecret));
 }
